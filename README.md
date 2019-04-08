@@ -1,4 +1,4 @@
-PixelmonTournamentPoints
+Pixelmon Tournament Points
 ============
 
 [![License](https://img.shields.io/github/license/nerlied/PixelmonTournamentPoints.svg?color=brightgreen&style=for-the-badge)](/LICENSE) 
@@ -16,19 +16,5 @@ PixelmonTournamentPoints
 
 ### Installation
 
-```
-Put dependencies in "lib" folder
-```
-```
-gradlew setupDecompWorkspace
-```
-```
-gradlew eclipse
-```
-
-### Building
-```
-gradlew build
-```
-
-Result jar can be found in "PixelmonTournamentPoints/build/libs"
+1. Add dependencies in ```lib``` folder.
+1. Follow [these instructions](https://mcforge.readthedocs.io/en/latest/gettingstarted/) to setup workplace.
