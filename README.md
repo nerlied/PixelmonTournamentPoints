@@ -6,7 +6,7 @@ Pixelmon Tournament Points
 [![Github Issues](https://img.shields.io/github/issues/nerlied/PixelmonTournamentPoints.svg?color=Crimson&style=for-the-badge)](https://github.com/nerlied/PixelmonTournamentPoints/issues) 
 [![Project Version](https://img.shields.io/badge/version-1.0.0-Orange.svg?style=for-the-badge)](https://github.com/nerlied/PixelmonTournamentPoints)
 
-**PixelmonTournamentPoints** is a SpongeForge 1.12 plugin. Statistics of player matches for Tournaments, Pixelmon sidemod.
+**PixelmonTournamentPoints** is a SpongeForge 1.12 plugin for statistics of player matches for *Tournaments*, Pixelmon sidemod.
 
 ### Dependencies
 
@@ -17,4 +17,4 @@ Pixelmon Tournament Points
 ### Installation
 
 1. Add dependencies in ```lib``` folder.
-1. Follow [these instructions](https://mcforge.readthedocs.io/en/latest/gettingstarted/) to setup workplace.
+1. Follow [these instructions](https://mcforge.readthedocs.io/en/latest/gettingstarted/) to setup workspace.
