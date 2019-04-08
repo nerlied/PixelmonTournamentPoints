@@ -1,5 +1,8 @@
+# Extensions
 *.classpath
 *.project
+
+# Folders
 .gradle/
 .settings/
 build/
