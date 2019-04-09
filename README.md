@@ -1,6 +1,12 @@
-# PixelmonTournamentPoints
+Pixelmon Tournament Points
+============
 
-Player Statistics for Tournaments (Pixelmon sidemod)
+[![License](https://img.shields.io/github/license/nerlied/PixelmonTournamentPoints.svg?color=brightgreen&style=for-the-badge)](/LICENSE) 
+[![Github Stars](https://img.shields.io/github/stars/nerlied/PixelmonTournamentPoints.svg?color=DeepSkyBlue&style=for-the-badge)](https://github.com/nerlied/PixelmonTournamentPoints/stargazers) 
+[![Github Issues](https://img.shields.io/github/issues/nerlied/PixelmonTournamentPoints.svg?color=Crimson&style=for-the-badge)](https://github.com/nerlied/PixelmonTournamentPoints/issues) 
+[![Project Version](https://img.shields.io/badge/version-1.0.0-Orange.svg?style=for-the-badge)](https://github.com/nerlied/PixelmonTournamentPoints)
+
+**PixelmonTournamentPoints** is a SpongeForge 1.12 plugin for statistics of player matches for *Tournaments*, Pixelmon sidemod.
 
 ### Dependencies
 
@@ -10,19 +16,5 @@ Player Statistics for Tournaments (Pixelmon sidemod)
 
 ### Installation
 
-```
-Put dependencies in "lib" folder
-```
-```
-gradlew setupDecompWorkspace
-```
-```
-gradlew eclipse
-```
-
-### Building
-```
-gradlew build
-```
-
-Result jar can be found in "PixelmonTournamentPoints/build/libs"
+1. Add dependencies in ```lib``` folder.
+1. Follow [these instructions](https://mcforge.readthedocs.io/en/latest/gettingstarted/) to setup workspace.
