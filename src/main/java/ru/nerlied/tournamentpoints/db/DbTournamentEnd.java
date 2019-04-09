@@ -2,7 +2,6 @@ package ru.nerlied.tournamentpoints.db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +24,6 @@ public class DbTournamentEnd extends DbTask {
 		if(TPConfig.INSTANCE.enableLog) System.out.println(this.getClass().getCanonicalName() + " process");
 		TPConfig conf = TPConfig.INSTANCE;
 		PreparedStatement ps = null;
-		ResultSet rs = null;
 		String sql;
 		
     	try {

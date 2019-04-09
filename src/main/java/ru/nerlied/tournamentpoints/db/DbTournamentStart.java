@@ -22,7 +22,6 @@ public class DbTournamentStart extends DbTask {
 		if(TPConfig.INSTANCE.enableLog) System.out.println(this.getClass().getCanonicalName() + " process");
 		TPConfig conf = TPConfig.INSTANCE;
 		PreparedStatement ps = null;
-		ResultSet rs = null;
 		String sql;
 		
     	try {

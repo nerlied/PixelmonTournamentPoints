@@ -12,6 +12,8 @@ import org.spongepowered.api.service.sql.SqlService;
 import ru.nerlied.tournamentpoints.TPConfig;
 
 public abstract class DbTask extends Thread {	
+	private static SqlService sql;
+	
 	private String dbUrl = TPConfig.INSTANCE.dbUrl;
 	
 	public DbTask setConf(String dbUrl) {
@@ -41,8 +43,6 @@ public abstract class DbTask extends Thread {
 
     protected abstract void process(Connection c) throws SQLException;
 
-	private static SqlService sql;
-	
 	public static DataSource getDataSource(String jdbcUrl) throws SQLException {
 	    if (sql == null) {
 	        sql = Sponge.getServiceManager().provide(SqlService.class).get();
