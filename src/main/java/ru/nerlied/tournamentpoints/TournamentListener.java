@@ -25,7 +25,7 @@ public class TournamentListener {
 	
 	@SubscribeEvent
 	public void onTournamentStart(TournamentStartEvent event) {
-		if(TPConfig.INSTANCE.enableLog) System.out.println(this.getClass().getCanonicalName() + " TournamentStartEvent");
+		TournamentPoints.LOG.info(this.getClass().getCanonicalName() + " TournamentStartEvent");
 
 		tournament.clear();
 		(new DbTournamentStart(tournament)).start();
@@ -33,19 +33,19 @@ public class TournamentListener {
 	
 	@SubscribeEvent
 	public void onRoundStart(RoundStartEvent event) {
-		if(TPConfig.INSTANCE.enableLog) System.out.println(this.getClass().getCanonicalName() + " RoundStartEvent");
+		TournamentPoints.LOG.info(this.getClass().getCanonicalName() + " RoundStartEvent");
 		tournament.tRoundNumber++;
 	}
 	
 	@SubscribeEvent
 	public void onMatchStart(MatchStartEvent event) {
-		if(TPConfig.INSTANCE.enableLog) System.out.println(this.getClass().getCanonicalName() + " MatchStartEvent");
+		TournamentPoints.LOG.info(this.getClass().getCanonicalName() + " MatchStartEvent");
 		tournament.tMatchNumber++;
 	}
 	
 	@SubscribeEvent
 	public void onMatchEnd(MatchEndEvent event) {
-		if(TPConfig.INSTANCE.enableLog) System.out.println(this.getClass().getCanonicalName() + " MatchEndEvent");
+		TournamentPoints.LOG.info(this.getClass().getCanonicalName() + " MatchEndEvent");
 		
 		for(Team team : event.winningSide.teams) {
 			for(User u : team.users) { 
@@ -55,7 +55,7 @@ public class TournamentListener {
 					tournament.tPlayers.add(playerName);
 				}
 				
-				if(TPConfig.INSTANCE.enableLog) System.out.println("Round win : " + playerName);
+				TournamentPoints.LOG.info("Round win : " + playerName);
 				
 				//инсерт в бд с информацией о победе в раунде игрока playerName
 				(new DbPlayerWinMatch(tournament, playerName)).start();				
@@ -70,7 +70,7 @@ public class TournamentListener {
 					tournament.tPlayers.add(playerName);
 				}
 				
-				if(TPConfig.INSTANCE.enableLog) System.out.println("Round lost : " + playerName);
+				TournamentPoints.LOG.info("Round lost : " + playerName);
 				
 				//инсерт в бд с информацией о победе в раунде игрока playerName
 				(new DbPlayerLoseMatch(tournament, playerName)).start();				
@@ -82,14 +82,14 @@ public class TournamentListener {
 	
 	@SubscribeEvent
 	public void onTournamentEnd(TournamentEndEvent event) {
-		if(TPConfig.INSTANCE.enableLog) System.out.println(this.getClass().getCanonicalName() + " TournamentEndEvent");
+		TournamentPoints.LOG.info(this.getClass().getCanonicalName() + " TournamentEndEvent");
 
 		List<String> winnersNames = new ArrayList<String>();
 		for(User u : event.winners) {
 			String playerName = u.getName();
 			winnersNames.add(playerName);
 			
-			if(TPConfig.INSTANCE.enableLog) System.out.println("Tournament win : " + playerName);
+			TournamentPoints.LOG.info("Tournament win : " + playerName);
 			
 			//инсерт в бд с информацией о победе в турнире игрока playerName
 			(new DbPlayerWinTournament(tournament, playerName)).start();			

@@ -6,8 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import ru.nerlied.tournamentpoints.TPConfig;
+import ru.nerlied.tournamentpoints.Config;
 import ru.nerlied.tournamentpoints.TournamentData;
+import ru.nerlied.tournamentpoints.TournamentPoints;
 
 public class DbPlayerWinMatch extends DbTask {
 	private TournamentData tData;
@@ -20,14 +21,13 @@ public class DbPlayerWinMatch extends DbTask {
 	
 	@Override
 	protected void process(Connection c) throws SQLException {
-		if(TPConfig.INSTANCE.enableLog) System.out.println(this.getClass().getCanonicalName() + " process");
-		TPConfig conf = TPConfig.INSTANCE;
+		TournamentPoints.LOG.info(this.getClass().getCanonicalName() + " process");
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		
     	try {
-    		String sql = "SELECT `id` FROM `" + conf.dbTblPlayers + "` WHERE `name` = '" + username + "'";
-    		if(TPConfig.INSTANCE.enableLog) System.out.println("SQL > " + sql);
+    		String sql = "SELECT `id` FROM `" + Config.dbTblPlayers + "` WHERE `name` = '" + username + "'";
+    		TournamentPoints.LOG.info("SQL > " + sql);
     		
     		ps = c.prepareStatement(sql);
     		rs = ps.executeQuery();
@@ -37,7 +37,7 @@ public class DbPlayerWinMatch extends DbTask {
     			id = rs.getInt("id");
     		} else {
     			sql = "INSERT INTO `player_stats`(`name`) VALUES ('" + this.username + "')";
-    			if(TPConfig.INSTANCE.enableLog) System.out.println("SQL > " + sql);
+    			TournamentPoints.LOG.info("SQL > " + sql);
     			ps = c.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 				int affectedRows = ps.executeUpdate();
     			if (affectedRows == 0) {
@@ -54,8 +54,8 @@ public class DbPlayerWinMatch extends DbTask {
     		}
     		
     		if(id != -1) {
-    			sql = "UPDATE `" + conf.dbTblPlayers + "` SET `matches_win`=`matches_win` + '1', `matches_total`=`matches_total` + 1, `points`=`points` + '" + conf.pointsAddWinMatch + "' WHERE `id`='" + id + "'";
-    			if(TPConfig.INSTANCE.enableLog) System.out.println("SQL > " + sql);
+    			sql = "UPDATE `" + Config.dbTblPlayers + "` SET `matches_win`=`matches_win` + '1', `matches_total`=`matches_total` + 1, `points`=`points` + '" + Config.pointsAddWinMatch + "' WHERE `id`='" + id + "'";
+    			TournamentPoints.LOG.info("SQL > " + sql);
     			ps = c.prepareStatement(sql);
                 ps.executeUpdate();
     		}

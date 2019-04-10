@@ -9,7 +9,8 @@ import org.spongepowered.api.command.CommandSource;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
 
-import ru.nerlied.tournamentpoints.TPConfig;
+import ru.nerlied.tournamentpoints.Config;
+import ru.nerlied.tournamentpoints.TournamentPoints;
 
 public class DbPlayerStats extends DbTask {
 	private CommandSource sender;
@@ -20,14 +21,13 @@ public class DbPlayerStats extends DbTask {
 	
 	@Override
 	protected void process(Connection c) throws SQLException {
-		if(TPConfig.INSTANCE.enableLog) System.out.println(this.getClass().getCanonicalName() + " process");
-		TPConfig conf = TPConfig.INSTANCE;
+		TournamentPoints.LOG.info(this.getClass().getCanonicalName() + " process");
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		
     	try {
-    		String sql = "SELECT * FROM `" + conf.dbTblPlayers + "` ORDER BY `points` DESC LIMIT 10;";
-    		if(TPConfig.INSTANCE.enableLog) System.out.println("SQL > " + sql);
+    		String sql = "SELECT * FROM `" + Config.dbTblPlayers + "` ORDER BY `points` DESC LIMIT 10;";
+    		TournamentPoints.LOG.info("SQL > " + sql);
     		
     		ps = c.prepareStatement(sql);
     		rs = ps.executeQuery();
@@ -43,8 +43,8 @@ public class DbPlayerStats extends DbTask {
         		
     			String player = sender.getName();
     			
-    			sql = "SELECT * FROM `" + conf.dbTblPlayers + "` WHERE `name`='" + player + "' LIMIT 1;";
-        		if(TPConfig.INSTANCE.enableLog) System.out.println("SQL > " + sql);
+    			sql = "SELECT * FROM `" + Config.dbTblPlayers + "` WHERE `name`='" + player + "' LIMIT 1;";
+        		TournamentPoints.LOG.info("SQL > " + sql);
         		
         		ps = c.prepareStatement(sql);
         		rs = ps.executeQuery();
@@ -56,8 +56,8 @@ public class DbPlayerStats extends DbTask {
     				int mTotal = rs.getInt("matches_total");
     				int position = 1;
     				
-    				sql = "SELECT COUNT(*) AS `pos` FROM `" + conf.dbTblPlayers + "` WHERE `points` >= '" + points + "';";
-            		if(TPConfig.INSTANCE.enableLog) System.out.println("SQL > " + sql);
+    				sql = "SELECT COUNT(*) AS `pos` FROM `" + Config.dbTblPlayers + "` WHERE `points` >= '" + points + "';";
+            		TournamentPoints.LOG.info("SQL > " + sql);
             		
             		ps = c.prepareStatement(sql);
             		rs = ps.executeQuery();
@@ -69,8 +69,8 @@ public class DbPlayerStats extends DbTask {
     			} else {
     				int position = 1;
     				
-    				sql = "SELECT COUNT(*) AS `pos` FROM `" + conf.dbTblPlayers + "`;";
-            		if(TPConfig.INSTANCE.enableLog) System.out.println("SQL > " + sql);
+    				sql = "SELECT COUNT(*) AS `pos` FROM `" + Config.dbTblPlayers + "`;";
+            		TournamentPoints.LOG.info("SQL > " + sql);
             		
             		ps = c.prepareStatement(sql);
             		rs = ps.executeQuery();

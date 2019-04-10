@@ -9,12 +9,12 @@ import javax.sql.DataSource;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.service.sql.SqlService;
 
-import ru.nerlied.tournamentpoints.TPConfig;
+import ru.nerlied.tournamentpoints.Config;
 
 public abstract class DbTask extends Thread {	
 	private static SqlService sql;
 	
-	private String dbUrl = TPConfig.INSTANCE.dbUrl;
+	private String dbUrl = Config.dbUrl;
 	
 	public DbTask setConf(String dbUrl) {
 		this.dbUrl = dbUrl;

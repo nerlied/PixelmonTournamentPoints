@@ -6,8 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import ru.nerlied.tournamentpoints.TPConfig;
+import ru.nerlied.tournamentpoints.Config;
 import ru.nerlied.tournamentpoints.TournamentData;
+import ru.nerlied.tournamentpoints.TournamentPoints;
 import ru.nerlied.tournamentpoints.Utils;
 
 public class DbTournamentStart extends DbTask {
@@ -19,14 +20,13 @@ public class DbTournamentStart extends DbTask {
 	
 	@Override
 	protected void process(Connection c) throws SQLException {
-		if(TPConfig.INSTANCE.enableLog) System.out.println(this.getClass().getCanonicalName() + " process");
-		TPConfig conf = TPConfig.INSTANCE;
+		TournamentPoints.LOG.info(this.getClass().getCanonicalName() + " process");
 		PreparedStatement ps = null;
 		String sql;
 		
     	try {
-    		sql = "INSERT INTO `" + conf.dbTblTournaments + "`(`time_start`) VALUES ('" + Utils.getCurTime() + "')";
-			if(TPConfig.INSTANCE.enableLog) System.out.println("SQL > " + sql);
+    		sql = "INSERT INTO `" + Config.dbTblTournaments + "`(`time_start`) VALUES ('" + Utils.getCurTime() + "')";
+			TournamentPoints.LOG.info("SQL > " + sql);
 			ps = c.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			int affectedRows = ps.executeUpdate();
 			if (affectedRows == 0) {
@@ -36,7 +36,7 @@ public class DbTournamentStart extends DbTask {
 			try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
 				if (generatedKeys.next()) {
 					tData.tId = generatedKeys.getInt(1);
-					System.out.println("Setting tounament id to " + tData.tId);
+					TournamentPoints.LOG.info("Setting tounament id to " + tData.tId);
 				} else {
 					throw new SQLException("Creating player failed, no ID obtained.");
 				}

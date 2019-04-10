@@ -4,8 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import ru.nerlied.tournamentpoints.TPConfig;
+import ru.nerlied.tournamentpoints.Config;
 import ru.nerlied.tournamentpoints.TournamentData;
+import ru.nerlied.tournamentpoints.TournamentPoints;
 import ru.nerlied.tournamentpoints.Utils;
 
 public class DbPlayerStatLog extends DbTask {
@@ -23,13 +24,12 @@ public class DbPlayerStatLog extends DbTask {
 
 	@Override
 	protected void process(Connection c) throws SQLException {
-		if(TPConfig.INSTANCE.enableLog) System.out.println(this.getClass().getCanonicalName() + " process");
-		TPConfig conf = TPConfig.INSTANCE;
+		TournamentPoints.LOG.info(this.getClass().getCanonicalName() + " process");
 		PreparedStatement ps = null;
 		
     	try {
-    		String sql = "INSERT INTO `" + conf.dbTblPlayerStatLog + "`(`tournament_id`, `tournament_round`, `tournament_match`, `player`, `action`, `data`, `time`) VALUES ('" + tData.tId + "', '" + tData.tRoundNumber + "', '" + tData.tMatchNumber + "', '" + this.player + "', '" + this.action + "', '" + this.data + "', '" + Utils.getCurTime() + "')";
-    		if(TPConfig.INSTANCE.enableLog) System.out.println("SQL > " + sql);
+    		String sql = "INSERT INTO `" + Config.dbTblPlayerStatLog + "`(`tournament_id`, `tournament_round`, `tournament_match`, `player`, `action`, `data`, `time`) VALUES ('" + tData.tId + "', '" + tData.tRoundNumber + "', '" + tData.tMatchNumber + "', '" + this.player + "', '" + this.action + "', '" + this.data + "', '" + Utils.getCurTime() + "')";
+    		TournamentPoints.LOG.info("SQL > " + sql);
     		ps = c.prepareStatement(sql);
     		ps.executeUpdate();
     	} catch(Exception e) {
