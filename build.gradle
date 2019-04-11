@@ -37,6 +37,8 @@ compileJava {
 minecraft {
     version = "1.12.2-14.23.5.2768"
     mappings = "snapshot_20180814"
+    replace "@VERSION@", project.version
+    replaceIn "TournamentPoints.java"
 }
 
 dependencies {

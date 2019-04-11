@@ -24,7 +24,7 @@ import ru.nerlied.tournamentpoints.db.DbPlayerStats;
  * @author Nerlied
  *
  */
-@Plugin(id = "tournamentpoints", name = "TournamentPoints", version = "0.0.6", 
+@Plugin(id = "tournamentpoints", name = "TournamentPoints", version = "@VERSION@", 
 description = "Player Statistics for Tournaments (Pixelmon sidemod)", 
 authors = {"Nerlied"},
 dependencies = { 
