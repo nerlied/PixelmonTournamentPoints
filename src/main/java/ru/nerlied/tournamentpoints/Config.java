@@ -21,6 +21,9 @@ public class Config {
 	//Количество очков за поражение в раунде, обычно меньше нуля
 	public static int pointsAddLoseTournament = 0;
 	
+	//Текущий сезон турниров
+	public static int season = 0;
+	
 	public static void load() {
 		Utils.loadJson(Const.CONFIG_MAIN, Config.class);
 		save();

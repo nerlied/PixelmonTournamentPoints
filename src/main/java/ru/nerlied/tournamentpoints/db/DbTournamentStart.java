@@ -25,7 +25,7 @@ public class DbTournamentStart extends DbTask {
 		String sql;
 		
     	try {
-    		sql = "INSERT INTO `" + Config.dbTblTournaments + "`(`time_start`) VALUES ('" + Utils.getCurTime() + "')";
+    		sql = "INSERT INTO `" + Config.dbTblTournaments + "`(`season`, `time_start`) VALUES ('" + Config.season + "', '" + Utils.getCurTime() + "')";
 			TournamentPoints.LOG.info("SQL > " + sql);
 			ps = c.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			int affectedRows = ps.executeUpdate();
@@ -40,7 +40,7 @@ public class DbTournamentStart extends DbTask {
 				} else {
 					throw new SQLException("Creating player failed, no ID obtained.");
 				}
-			} 		
+			}
     	} catch(Exception e) {
     		e.printStackTrace();
     	} finally {

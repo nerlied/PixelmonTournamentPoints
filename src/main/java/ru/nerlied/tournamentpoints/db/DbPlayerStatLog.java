@@ -28,7 +28,7 @@ public class DbPlayerStatLog extends DbTask {
 		PreparedStatement ps = null;
 		
     	try {
-    		String sql = "INSERT INTO `" + Config.dbTblPlayerStatLog + "`(`tournament_id`, `tournament_round`, `tournament_match`, `player`, `action`, `data`, `time`) VALUES ('" + tData.tId + "', '" + tData.tRoundNumber + "', '" + tData.tMatchNumber + "', '" + this.player + "', '" + this.action + "', '" + this.data + "', '" + Utils.getCurTime() + "')";
+    		String sql = "INSERT INTO `" + Config.dbTblPlayerStatLog + "`(`season`, `tournament_id`, `tournament_round`, `tournament_match`, `player`, `action`, `data`, `time`) VALUES ('" + Config.season + "', '" + tData.tId + "', '" + tData.tRoundNumber + "', '" + tData.tMatchNumber + "', '" + this.player + "', '" + this.action + "', '" + this.data + "', '" + Utils.getCurTime() + "')";
     		TournamentPoints.LOG.info("SQL > " + sql);
     		ps = c.prepareStatement(sql);
     		ps.executeUpdate();
