@@ -26,9 +26,11 @@ public class DbPlayerWinMatch extends DbTask {
     		int id = getPlayerStatId(c, username);
 
     		if(id != -1) {
-    			String sql = "UPDATE `" + Config.dbTblPlayers + "` SET `matches_win`=`matches_win` + '1', `matches_total`=`matches_total` + 1, `points`=`points` + '" + Config.pointsAddWinMatch + "' WHERE `id`='" + id + "'";
-    			TournamentPoints.LOG.info("SQL > " + sql);
+    			String sql = String.format("UPDATE `%s` SET `matches_win` = `matches_win` + '1', `matches_total` = `matches_total` + 1, `points` = `points` + ? WHERE `id` = ?", Config.dbTblPlayers);
     			ps = c.prepareStatement(sql);
+    			ps.setInt(1, Config.pointsAddWinMatch);
+    			ps.setInt(2, id);
+    			TournamentPoints.LOG.info("SQL > " + ps);
                 ps.executeUpdate();
     		}
     		

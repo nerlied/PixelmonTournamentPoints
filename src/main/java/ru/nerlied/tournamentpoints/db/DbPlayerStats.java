@@ -26,10 +26,10 @@ public class DbPlayerStats extends DbTask {
 		ResultSet rs = null;
 		
     	try {
-    		String sql = "SELECT * FROM `" + Config.dbTblPlayers + "` WHERE `season`='" + Config.season + "' ORDER BY `points` DESC LIMIT 10;";
-    		TournamentPoints.LOG.info("SQL > " + sql);
-    		
+    		String sql = String.format("SELECT * FROM `%s` WHERE `season` = ? ORDER BY `points` DESC LIMIT 10;", Config.dbTblPlayers);
     		ps = c.prepareStatement(sql);
+    		ps.setInt(1, Config.season);
+    		TournamentPoints.LOG.info("SQL > " + ps);
     		rs = ps.executeQuery();
     		int i = 1;
     		while(rs.next()) {
@@ -42,11 +42,11 @@ public class DbPlayerStats extends DbTask {
         		this.sender.sendMessage(Text.of("Your Posiition:"));
         		
     			String player = sender.getName();
-    			
-    			sql = "SELECT * FROM `" + Config.dbTblPlayers + "` WHERE `season`='" + Config.season + "' AND `name`='" + player + "' LIMIT 1;";
-        		TournamentPoints.LOG.info("SQL > " + sql);
-        		
+    			sql = String.format("SELECT * FROM `%s` WHERE `season` = ? AND `name` = ? LIMIT 1;", Config.dbTblPlayers);
         		ps = c.prepareStatement(sql);
+        		ps.setInt(1, Config.season);
+        		ps.setString(2, player);
+        		TournamentPoints.LOG.info("SQL > " + ps);
         		rs = ps.executeQuery();
     			if(rs.next()) {
     				int points = rs.getInt("points");
@@ -56,10 +56,11 @@ public class DbPlayerStats extends DbTask {
     				int mTotal = rs.getInt("matches_total");
     				int position = 1;
     				
-    				sql = "SELECT COUNT(*) AS `pos` FROM `" + Config.dbTblPlayers + "` WHERE `season`='" + Config.season + "' AND `points` >= '" + points + "';";
-            		TournamentPoints.LOG.info("SQL > " + sql);
-            		
+    				sql = String.format("SELECT COUNT(*) AS `pos` FROM `%s` WHERE `season` = ? AND `points` >= ?;", Config.dbTblPlayers);
             		ps = c.prepareStatement(sql);
+            		ps.setInt(1, Config.season);
+            		ps.setInt(2, points);
+            		TournamentPoints.LOG.info("SQL > " + ps);
             		rs = ps.executeQuery();
             		if(rs.next()) {
             			position = rs.getInt("pos");
@@ -69,10 +70,10 @@ public class DbPlayerStats extends DbTask {
     			} else {
     				int position = 1;
     				
-    				sql = "SELECT COUNT(*) AS `pos` FROM `" + Config.dbTblPlayers + "` WHERE `season`='" + Config.season + "';";
-            		TournamentPoints.LOG.info("SQL > " + sql);
-            		
+    				sql = String.format("SELECT COUNT(*) AS `pos` FROM `%s` WHERE `season` = ?;", Config.dbTblPlayers);
             		ps = c.prepareStatement(sql);
+            		ps.setInt(1, Config.season);
+            		TournamentPoints.LOG.info("SQL > " + ps);
             		rs = ps.executeQuery();
             		if(rs.next()) {
             			position = rs.getInt("pos") + 1;

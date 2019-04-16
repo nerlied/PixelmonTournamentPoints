@@ -28,9 +28,11 @@ public class DbPlayerLoseTournament extends DbTask {
     		int id = getPlayerStatId(c, username);
     		
     		if(id != -1) {
-    			String sql = "UPDATE `" + Config.dbTblPlayers + "` SET `tournaments_lose`=`tournaments_lose` + '1', `tournaments_total`=`tournaments_total` + 1, `points`=`points`+'" + Config.pointsAddLoseTournament + "' WHERE `id`='" + id + "'";
-    			TournamentPoints.LOG.info("SQL > " + sql);
+    			String sql = String.format("UPDATE `%s` SET `tournaments_lose`=`tournaments_lose` + '1', `tournaments_total` = `tournaments_total` + 1, `points` = `points` + ? WHERE `id` = ?", Config.dbTblPlayers);
     			ps = c.prepareStatement(sql);
+    			ps.setInt(1, Config.pointsAddLoseTournament);
+    			ps.setInt(2, id);
+    			TournamentPoints.LOG.info("SQL > " + ps);
     			ps.executeUpdate();
     		}
     		

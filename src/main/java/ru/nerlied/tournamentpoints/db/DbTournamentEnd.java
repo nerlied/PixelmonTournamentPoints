@@ -28,9 +28,11 @@ public class DbTournamentEnd extends DbTask {
 		
     	try {
     		if(tData.tId != 0) {
-				sql = "UPDATE `" + Config.dbTblTournaments + "` SET `time_end`='" + Utils.getCurTime() + "' WHERE `id`='" + tData.tId + "'";
-				TournamentPoints.LOG.info("SQL > " + sql);
+				sql = String.format("UPDATE `%s` SET `time_end` = ? WHERE `id` = ?", Config.dbTblTournaments);
 				ps = c.prepareStatement(sql);
+				ps.setInt(1, Utils.getCurTime());
+				ps.setInt(2, tData.tId);
+				TournamentPoints.LOG.info("SQL > " + ps);
     			ps.executeUpdate();
     			
         		List<String> losers = new ArrayList<String>();

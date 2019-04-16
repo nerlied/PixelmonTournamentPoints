@@ -25,9 +25,11 @@ public class DbTournamentStart extends DbTask {
 		String sql;
 		
     	try {
-    		sql = "INSERT INTO `" + Config.dbTblTournaments + "`(`season`, `time_start`) VALUES ('" + Config.season + "', '" + Utils.getCurTime() + "')";
+    		sql = String.format("INSERT INTO `%s`(`season`, `time_start`) VALUES (?, ?)", Config.dbTblTournaments);
 			TournamentPoints.LOG.info("SQL > " + sql);
 			ps = c.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			ps.setInt(1, Config.season);
+			ps.setInt(2, Utils.getCurTime());
 			int affectedRows = ps.executeUpdate();
 			if (affectedRows == 0) {
 				throw new SQLException("Creating player failed, no rows affected.");

@@ -23,9 +23,12 @@ public class DbTournamentUpdate extends DbTask {
 		
     	try {
     		if(tData.tId != 0) {
-				sql = "UPDATE `" + Config.dbTblTournaments + "` SET `round_number`='" + tData.tRoundNumber + "',`match_number`='" + tData.tMatchNumber + "' WHERE `id`='" + tData.tId + "'";
-				TournamentPoints.LOG.info("SQL > " + sql);
+				sql = String.format("UPDATE `%s` SET `round_number` = ?,`match_number` = ? WHERE `id` = ?", Config.dbTblTournaments);
 				ps = c.prepareStatement(sql);
+				ps.setInt(1, tData.tRoundNumber);
+				ps.setInt(2, tData.tMatchNumber);
+				ps.setInt(3, tData.tId);
+				TournamentPoints.LOG.info("SQL > " + ps);
     			ps.executeUpdate();
 			} else {
 				TournamentPoints.LOG.info("[ERROR] updating tournament failed: tournamentId = 0");
