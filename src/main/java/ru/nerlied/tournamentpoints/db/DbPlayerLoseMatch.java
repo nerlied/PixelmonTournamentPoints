@@ -34,7 +34,7 @@ public class DbPlayerLoseMatch extends DbTask {
                 ps.executeUpdate();
     		}
     		
-    		(new DbPlayerStatLog(tData, username, "match_lose", "")).process(c);
+    		(new DbPlayerStatLog(tData, username, "match_lose", Config.pointsAddLoseMatch, "")).process(c);
     	} catch(Exception e) {
     		e.printStackTrace();
     	} finally {

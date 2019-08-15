@@ -39,7 +39,7 @@ public class DbPlayerStats extends DbTask {
     		
     		if(sender instanceof Player) {
     			this.sender.sendMessage(Text.of("-------------------"));
-        		this.sender.sendMessage(Text.of("Your Posiition:"));
+        		this.sender.sendMessage(Text.of("Your Position:"));
         		
     			String player = sender.getName();
     			sql = String.format("SELECT * FROM `%s` WHERE `season` = ? AND `name` = ? LIMIT 1;", Config.dbTblPlayers);

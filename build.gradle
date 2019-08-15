@@ -26,7 +26,7 @@ apply plugin: 'net.minecraftforge.gradle.forge'
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 
 archivesBaseName = "TournamentPoints"
-version = "1.12.2-0.0.7"
+version = "1.12.2-0.0.8"
 group = "ru.nerlied.tournamentpoints"
 
 sourceCompatibility = targetCompatibility = '1.8'

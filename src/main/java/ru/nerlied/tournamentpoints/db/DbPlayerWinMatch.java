@@ -34,7 +34,7 @@ public class DbPlayerWinMatch extends DbTask {
                 ps.executeUpdate();
     		}
     		
-    		(new DbPlayerStatLog(tData, username, "match_win", "")).process(c);
+    		(new DbPlayerStatLog(tData, username, "match_win", Config.pointsAddWinMatch, "")).process(c);
     	} catch(Exception e) {
     		e.printStackTrace();
     	} finally {

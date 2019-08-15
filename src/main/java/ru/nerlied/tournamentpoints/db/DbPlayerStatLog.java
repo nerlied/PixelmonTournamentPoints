@@ -13,12 +13,14 @@ public class DbPlayerStatLog extends DbTask {
 	private TournamentData tData;
 	private String player;
 	private String action;
+	private int points;
 	private String data;
 	
-	public DbPlayerStatLog(TournamentData tData, String player, String action, String data) {
+	public DbPlayerStatLog(TournamentData tData, String player, String action, int points, String data) {
 		this.tData = tData;
 		this.player = player;
 		this.action = action;
+		this.points = points;
 		this.data = data;
 	}
 
@@ -28,7 +30,7 @@ public class DbPlayerStatLog extends DbTask {
 		PreparedStatement ps = null;
 		
     	try {
-    		String sql = String.format("INSERT INTO `%s`(`season`, `tournament_id`, `tournament_round`, `tournament_match`, `player`, `action`, `data`, `time`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", Config.dbTblPlayerStatLog);
+    		String sql = String.format("INSERT INTO `%s`(`season`, `tournament_id`, `tournament_round`, `tournament_match`, `player`, `action`, `points`, `data`, `time`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", Config.dbTblPlayerStatLog);
     		ps = c.prepareStatement(sql);
     		ps.setInt(1, Config.season);
     		ps.setInt(2, tData.tId);
@@ -36,8 +38,9 @@ public class DbPlayerStatLog extends DbTask {
     		ps.setInt(4, tData.tMatchNumber);
     		ps.setString(5, this.player);
     		ps.setString(6, this.action);
-    		ps.setString(7, this.data);
-    		ps.setInt(8, Utils.getCurTime());
+    		ps.setInt(7, this.points);
+    		ps.setString(8, this.data);
+    		ps.setInt(9, Utils.getCurTime());
     		TournamentPoints.LOG.info("SQL > " + ps);
     		ps.executeUpdate();
     	} catch(Exception e) {

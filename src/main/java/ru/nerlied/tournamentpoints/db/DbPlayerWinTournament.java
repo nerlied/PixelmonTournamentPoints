@@ -34,7 +34,7 @@ public class DbPlayerWinTournament extends DbTask {
     			ps.executeUpdate();
     		}
     		
-    		(new DbPlayerStatLog(tData, username, "tournament_win", "")).process(c);
+    		(new DbPlayerStatLog(tData, username, "tournament_win", Config.pointsAddWinTournament, "")).process(c);
     	} catch(Exception e) {
     		e.printStackTrace();
     	} finally {

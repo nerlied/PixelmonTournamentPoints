@@ -36,7 +36,7 @@ public class DbPlayerLoseTournament extends DbTask {
     			ps.executeUpdate();
     		}
     		
-    		(new DbPlayerStatLog(tData, username, "tournament_lose", "")).process(c);
+    		(new DbPlayerStatLog(tData, username, "tournament_lose", Config.pointsAddLoseTournament, "")).process(c);
     	} catch(Exception e) {
     		e.printStackTrace();
     	} finally {
