@@ -10,7 +10,7 @@ import ru.nerlied.tournamentpoints.Config;
 import ru.nerlied.tournamentpoints.TournamentData;
 import ru.nerlied.tournamentpoints.TournamentPoints;
 
-public class DbPlayerLoseTournament extends DbTask {
+public class DbPlayerLoseTournament extends DbTournamentTask {
 	private TournamentData tData;
 	private String username;
 	

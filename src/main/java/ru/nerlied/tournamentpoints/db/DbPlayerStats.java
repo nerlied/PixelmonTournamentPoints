@@ -9,10 +9,11 @@ import org.spongepowered.api.command.CommandSource;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
 
+import ru.nerlied.ncore.NConfig;
 import ru.nerlied.tournamentpoints.Config;
 import ru.nerlied.tournamentpoints.TournamentPoints;
 
-public class DbPlayerStats extends DbTask {
+public class DbPlayerStats extends DbTournamentTask {
 	private CommandSource sender;
 	
 	public DbPlayerStats(CommandSource src) {
@@ -26,9 +27,9 @@ public class DbPlayerStats extends DbTask {
 		ResultSet rs = null;
 		
     	try {
-    		String sql = String.format("SELECT * FROM `%s` WHERE `season` = ? ORDER BY `points` DESC LIMIT 10;", Config.dbTblPlayers);
+    		String sql = String.format("SELECT * FROM `%s` WHERE `server` = ? ORDER BY `points` DESC LIMIT 10;", Config.dbTblPlayers);
     		ps = c.prepareStatement(sql);
-    		ps.setInt(1, Config.season);
+    		ps.setInt(1, NConfig.INSTANCE.serverId);
     		TournamentPoints.LOG.info("SQL > " + ps);
     		rs = ps.executeQuery();
     		int i = 1;
@@ -42,9 +43,9 @@ public class DbPlayerStats extends DbTask {
         		this.sender.sendMessage(Text.of("Your Position:"));
         		
     			String player = sender.getName();
-    			sql = String.format("SELECT * FROM `%s` WHERE `season` = ? AND `name` = ? LIMIT 1;", Config.dbTblPlayers);
+    			sql = String.format("SELECT * FROM `%s` WHERE `server` = ? AND `name` = ? LIMIT 1;", Config.dbTblPlayers);
         		ps = c.prepareStatement(sql);
-        		ps.setInt(1, Config.season);
+        		ps.setInt(1, NConfig.INSTANCE.serverId);
         		ps.setString(2, player);
         		TournamentPoints.LOG.info("SQL > " + ps);
         		rs = ps.executeQuery();
@@ -56,9 +57,9 @@ public class DbPlayerStats extends DbTask {
     				int mTotal = rs.getInt("matches_total");
     				int position = 1;
     				
-    				sql = String.format("SELECT COUNT(*) AS `pos` FROM `%s` WHERE `season` = ? AND `points` >= ?;", Config.dbTblPlayers);
+    				sql = String.format("SELECT COUNT(*) AS `pos` FROM `%s` WHERE `server` = ? AND `points` >= ?;", Config.dbTblPlayers);
             		ps = c.prepareStatement(sql);
-            		ps.setInt(1, Config.season);
+            		ps.setInt(1, NConfig.INSTANCE.serverId);
             		ps.setInt(2, points);
             		TournamentPoints.LOG.info("SQL > " + ps);
             		rs = ps.executeQuery();
@@ -70,9 +71,9 @@ public class DbPlayerStats extends DbTask {
     			} else {
     				int position = 1;
     				
-    				sql = String.format("SELECT COUNT(*) AS `pos` FROM `%s` WHERE `season` = ?;", Config.dbTblPlayers);
+    				sql = String.format("SELECT COUNT(*) AS `pos` FROM `%s` WHERE `server` = ?;", Config.dbTblPlayers);
             		ps = c.prepareStatement(sql);
-            		ps.setInt(1, Config.season);
+            		ps.setInt(1, NConfig.INSTANCE.serverId);
             		TournamentPoints.LOG.info("SQL > " + ps);
             		rs = ps.executeQuery();
             		if(rs.next()) {

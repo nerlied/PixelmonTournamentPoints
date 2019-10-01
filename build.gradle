@@ -26,7 +26,7 @@ apply plugin: 'net.minecraftforge.gradle.forge'
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 
 archivesBaseName = "TournamentPoints"
-version = "1.12.2-0.0.8"
+version = "1.12.2-0.0.9"
 group = "ru.nerlied.tournamentpoints"
 
 sourceCompatibility = targetCompatibility = '1.8'
@@ -48,6 +48,7 @@ dependencies {
     //compile name: 'Pixelmon-1.12.2-7.0.5'
     //compile name: 'PlaceholderAPI-4.4'
     //compile name: 'Tournaments-1.12.2-2.5.8'
+    //compile name: 'NcoreServer-1.2.1'
 }
 
 processResources {

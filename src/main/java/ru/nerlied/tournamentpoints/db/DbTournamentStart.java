@@ -6,12 +6,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import ru.nerlied.ncore.NConfig;
 import ru.nerlied.tournamentpoints.Config;
 import ru.nerlied.tournamentpoints.TournamentData;
 import ru.nerlied.tournamentpoints.TournamentPoints;
 import ru.nerlied.tournamentpoints.Utils;
 
-public class DbTournamentStart extends DbTask {
+public class DbTournamentStart extends DbTournamentTask {
 	private TournamentData tData;
 	
 	public DbTournamentStart(TournamentData tData) {
@@ -25,10 +26,10 @@ public class DbTournamentStart extends DbTask {
 		String sql;
 		
     	try {
-    		sql = String.format("INSERT INTO `%s`(`season`, `time_start`) VALUES (?, ?)", Config.dbTblTournaments);
+    		sql = String.format("INSERT INTO `%s`(`server`, `time_start`) VALUES (?, ?)", Config.dbTblTournaments);
 			TournamentPoints.LOG.info("SQL > " + sql);
 			ps = c.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-			ps.setInt(1, Config.season);
+			ps.setInt(1, NConfig.INSTANCE.serverId);
 			ps.setInt(2, Utils.getCurTime());
 			int affectedRows = ps.executeUpdate();
 			if (affectedRows == 0) {

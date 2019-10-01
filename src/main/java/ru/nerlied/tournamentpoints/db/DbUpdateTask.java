@@ -3,7 +3,7 @@ package ru.nerlied.tournamentpoints.db;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public class DbUpdateTask extends DbTask {
+public class DbUpdateTask extends DbTournamentTask {
 	private String sql;
 	
 	public DbUpdateTask(String sql) {

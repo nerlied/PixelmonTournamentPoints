@@ -4,12 +4,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import ru.nerlied.ncore.NConfig;
 import ru.nerlied.tournamentpoints.Config;
 import ru.nerlied.tournamentpoints.TournamentData;
 import ru.nerlied.tournamentpoints.TournamentPoints;
 import ru.nerlied.tournamentpoints.Utils;
 
-public class DbPlayerStatLog extends DbTask {
+public class DbPlayerStatLog extends DbTournamentTask {
 	private TournamentData tData;
 	private String player;
 	private String action;
@@ -30,9 +31,9 @@ public class DbPlayerStatLog extends DbTask {
 		PreparedStatement ps = null;
 		
     	try {
-    		String sql = String.format("INSERT INTO `%s`(`season`, `tournament_id`, `tournament_round`, `tournament_match`, `player`, `action`, `points`, `data`, `time`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", Config.dbTblPlayerStatLog);
+    		String sql = String.format("INSERT INTO `%s`(`server`, `tournament_id`, `tournament_round`, `tournament_match`, `player`, `action`, `points`, `data`, `time`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", Config.dbTblPlayerStatLog);
     		ps = c.prepareStatement(sql);
-    		ps.setInt(1, Config.season);
+    		ps.setInt(1, NConfig.INSTANCE.serverId);
     		ps.setInt(2, tData.tId);
     		ps.setInt(3, tData.tRoundNumber);
     		ps.setInt(4, tData.tMatchNumber);

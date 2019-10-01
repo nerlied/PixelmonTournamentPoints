@@ -11,25 +11,22 @@ import javax.sql.DataSource;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.service.sql.SqlService;
 
+import ru.nerlied.ncore.NConfig;
+import ru.nerlied.ncore.ServerConfig;
+import ru.nerlied.ncore.db.DbConfig;
 import ru.nerlied.tournamentpoints.Config;
 import ru.nerlied.tournamentpoints.TournamentPoints;
 
-public abstract class DbTask extends Thread {	
+public abstract class DbTournamentTask extends Thread {	
 	private static SqlService sqlService;
 	
-	private String dbUrl = Config.dbUrl;
-	
-	public DbTask setConf(String dbUrl) {
-		this.dbUrl = dbUrl;
-		return this;
-	}
+	private DbConfig dbConf = ServerConfig.getDb(TournamentPoints.MOD_ID);
 	
 	@Override
     public final void run() {
         Connection c = null;
         try {
-            String url = dbUrl + "?useUnicode=true&characterEncoding=utf-8";
-            c = getDataSource(url).getConnection();
+            c = getDataSource(dbConf.url).getConnection();
             process(c);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -71,7 +68,7 @@ public abstract class DbTask extends Thread {
     }
     
     protected static int getPlayerStatId(Connection c, String username) throws SQLException {
-    	String sql = "SELECT `id` FROM `" + Config.dbTblPlayers + "` WHERE `name` = '" + username + "' AND `season`='" + Config.season + "'";
+    	String sql = "SELECT `id` FROM `" + Config.dbTblPlayers + "` WHERE `name` = '" + username + "' AND `server`='" + NConfig.INSTANCE.serverId + "'";
 		TournamentPoints.LOG.info("SQL > " + sql);
 		
 		PreparedStatement ps = c.prepareStatement(sql);
@@ -85,7 +82,7 @@ public abstract class DbTask extends Thread {
     }
     
     protected static int insertPlayerStat(Connection c, String username) throws SQLException {
-    	String sql = "INSERT INTO `player_stats`(`name`, `season`) VALUES ('" + username + "', '" + Config.season + "')";
+    	String sql = "INSERT INTO `player_stats`(`name`, `server`) VALUES ('" + username + "', '" + NConfig.INSTANCE.serverId + "')";
 		TournamentPoints.LOG.info("SQL > " + sql);
 		PreparedStatement ps = c.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 		int affectedRows = ps.executeUpdate();

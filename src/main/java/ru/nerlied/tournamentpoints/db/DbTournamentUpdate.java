@@ -8,7 +8,7 @@ import ru.nerlied.tournamentpoints.Config;
 import ru.nerlied.tournamentpoints.TournamentData;
 import ru.nerlied.tournamentpoints.TournamentPoints;
 
-public class DbTournamentUpdate extends DbTask {
+public class DbTournamentUpdate extends DbTournamentTask {
 	private TournamentData tData;
 	
 	public DbTournamentUpdate(TournamentData tData) {

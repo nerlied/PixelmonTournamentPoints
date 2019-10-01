@@ -11,7 +11,7 @@ import ru.nerlied.tournamentpoints.TournamentData;
 import ru.nerlied.tournamentpoints.TournamentPoints;
 import ru.nerlied.tournamentpoints.Utils;
 
-public class DbTournamentEnd extends DbTask {
+public class DbTournamentEnd extends DbTournamentTask {
 	private TournamentData tData;
 	private List<String> winners;
 	
